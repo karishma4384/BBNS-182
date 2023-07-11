@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<style>
+    /*custom font*/
+    @import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+    /*basic reset*/
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        height: 100%;
+        background:white; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #6441A5, #2a0845); /* Chrome 10-25, Safari 5.1-6 */
+    }
+
+    body {
+        font-family: Montserrat,sans-serif;
+        background: transparent;
+        overflow-x: hidden;
+    }
+    #myform {
+        text-align:center;
+        text-size-adjust: 100%;
+        font-size: 14px;
+        --use-sticky-header: 1;
+        --use-unsticky-header: 0;
+        --header-is-transparent: 0;
+        --window-height: 920px;
+        --announcement-bar-height: 81px;
+        --header-height: 77px;
+        --header-is-not-transparent: 1;
+        font-family: Montserrat,sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        color: #333;
+        box-sizing: border-box !important;
+        -webkit-font-smoothing: antialiased;
+    }
+    #myform fieldset {
+        --use-sticky-header: 1;
+        --use-unsticky-header: 0;
+        --header-is-transparent: 0;
+        --window-height: 920px;
+        --announcement-bar-height: 81px;
+        --header-height: 77px;
+        --header-is-not-transparent: 1;
+        background: white;
+        border:0 none;
+        border-radius: 0px;
+        left: 0;
+        right: 0;
+        width:100%;
+        padding:0% 5% 5% 5%;
+        position: relative;
+    }
+    /*Hide all except first fieldset*/
+    #myform fieldset:not(:first-of-type) {
+        display: none;
+    }
+
+    /*inputs*/
+    .input_text{
+        --use-sticky-header: 1;
+        --use-unsticky-header: 0;
+        --header-is-transparent: 0;
+        --window-height: 920px;
+        --announcement-bar-height: 81px;
+        --header-height: 77px;
+        --header-is-not-transparent: 1;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 0px;
+        margin-bottom: 0px;
+        width: 100%;
+        box-sizing: border-box;
+        font-family: Montserrat,sans-serif;
+        color: #2C3E50;
+        font-size: 13px;
+    }
+    .doc{
+        float:left;
+        margin-top: 0;
+        width: 210px;
+
+    }
+    div.error{
+        color: red;
+        font-family: Montserrat,sans-serif;
+        float:left;
+    }
+
+    .error1 {
+        color: red;
+        font-family: Montserrat,sans-serif;
+        float: left;
+    }
+    .input_text:focus, #myform textarea:focus, #myform select:focus {
+        --use-sticky-header: 1;
+        --use-unsticky-header: 0;
+        --header-is-transparent: 0;
+        --window-height: 920px;
+        --announcement-bar-height: 81px;
+        --header-height: 77px;
+        --header-is-not-transparent: 1;
+        -moz-box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        border: 1px solid black;
+        outline-width: 0;
+        transition: All 0.5s ease-in;
+        -webkit-transition: All 0.5s ease-in;
+        -moz-transition: All 0.5s ease-in;
+        -o-transition: All 0.5s ease-in;
+    }
+    /*buttons*/
+    #myform .action-button {
+        --use-sticky-header: 1;
+        --use-unsticky-header: 0;
+        --header-is-transparent: 0;
+        --window-height: 920px;
+        --announcement-bar-height: 81px;
+        --header-height: 77px;
+        --header-is-not-transparent: 1;
+        width: 113px;
+        background: black;
+        font-weight: bold;
+        color: white;
+        border: 0 none;
+        border-radius: 12px;
+        cursor: pointer;
+        padding: 10px 5px;
+        margin: -20px 5px;
+        float: right;
+    }
+
+    #myform .action-button:hover, #myform .action-button:focus {
+        box-shadow: 0 0 0 2px white, 0 0 0 3px black;
+    }
+    #myform .action-button-previous {
+        --use-sticky-header: 1;
+        --use-unsticky-header: 0;
+        --header-is-transparent: 0;
+        --window-height: 920px;
+        --announcement-bar-height: 81px;
+        --header-height: 77px;
+        --header-is-not-transparent: 1;
+        width: 113px;
+        background: #F1C40F;
+        font-weight: bold;
+        color: black;
+        border: 0 none;
+        border-radius: 12px;
+        cursor: pointer;
+        padding: 10px 5px;
+        margin: -20px 5px;
+        float: right;
+
+    }
+    #myform .action-button-previous:hover, #myform .action-button-previous:focus {
+        box-shadow: 0 0 0 2px white, 0 0 0 3px #C5C5F1;
+    }
+    #myform .submit-button{
+        --use-sticky-header: 1;
+        --use-unsticky-header: 0;
+        --header-is-transparent: 0;
+        --window-height: 920px;
+        --announcement-bar-height: 81px;
+        --header-height: 77px;
+        --header-is-not-transparent: 1;
+        width: 113px;
+        background: black;
+        font-weight: bold;
+        color: white;
+        border: 0 none;
+        border-radius: 12px;
+        cursor: pointer;
+        padding: 10px 5px;
+        margin: 10px 5px;
+        float: right;
+    }
+    #myform .submit-button:hover, #myform .submit-button:focus {
+        box-shadow: 0 0 0 2px white, 0 0 0 3px black;
+    }
+
+    #progressbar {
+        --use-sticky-header: 1;
+        --use-unsticky-header: 0;
+        --header-is-transparent: 0;
+        --window-height: 920px;
+        --announcement-bar-height: 81px;
+        --header-height: 77px;
+        --header-is-not-transparent: 1;
+        margin-bottom: 15px;
+        overflow: hidden;
+        /*CSS counters to number the steps*/
+        /*counter-reset: step;*/
+        justify-content: space-between;
+        width: 100%;
+    }
+    #progressbar::before
+    {
+        content: "";
+        position: absolute;
+        transform: translateY(-70%);
+        height: 3px;
+        width: 100%;
+        background-color: #dcdcdc;
+        z-index: -1;
+        margin-top: 40px;
+        float: left;
+        display: flex;
+        left: 0;
+    }
+    #progressbar li {
+        list-style-type: none;
+        width: 25%;
+        position:relative;
+        margin-top: 25px;
+        float: left;
+        display: flex;
+        align-items: center;
+    }
+    #progressbar li:before {
+        width: 28px;
+        height: 28px;
+        line-height: 29px;
+        display: block;
+        font-size: 12px;
+        color: #333;
+        background:#dcdcdc;
+        border-radius: 25px;
+        margin: 0 auto 0 auto;
+        /*counter-increment: step;*/
+        content:'';
+    }
+    /*progressbar connectors*/
+    #progressbar li:after {
+        --use-sticky-header: 1;
+        --use-unsticky-header: 0;
+        --header-is-transparent: 0;
+        --window-height: 920px;
+        --announcement-bar-height: 81px;
+        --header-height: 77px;
+        --header-is-not-transparent: 1;
+        content: '';
+        width: 100%;
+        height: 2px;
+        background: white;
+        position: absolute;
+        left: -50%;
+        top: 14px;
+        z-index: -1; /*put it behind the numbers*/
+    }
+    #progressbar li:first-child:after {
+        /*connector not needed before the first step*/
+        width: 180%;
+    }
+    #progressbar li:last-child:after{
+        width:180%;
+    }
+    /*marking active/completed steps green*/
+    /*The number of the step and the connector before it = green*/
+    #progressbar li.active:before, #progressbar li.active:after {
+        background: #F1C40F;
+        color: black;
+        font-weight: bold;
+    }
+
+    h1,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+        float: left;
+        margin-top: 0;
+        font-size: inherit;
+        font-weight: inherit;
+        font-weight: bold;
+        font-family:Montserrat,sans-serif;
+    }
+    h2{
+        float: left;
+        text-align: left;
+        margin-top: 0;
+        font-size: inherit;
+        font-weight: inherit;
+        font-weight: bold;
+        font-family:Montserrat,sans-serif;
+    }
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 15px;
+        height: 15px;
+        -webkit-animation: spin 0.5s linear infinite;
+        /* Safari */
+        animation: spin 0.5s linear infinite;
+        display: none;
+
+
+    }
+    
+    .required:after {
+        content:" *";
+        color: red;
+    }
+  
+    #copydata{
+        display:none;
+    }
+    .sub-heading{
+        /*margin-top: -32%;*/
+        font-family:Montserrat,sans-serif;
+        font-style:italic;
+        font-size: 20px;
+        /*margin-left: 35%;*/
+        width: 100%;
+        /*margin: -40px 5px;*/
+        padding-bottom: 14px;
+
+    }
+    ::placeholder{
+        font-weight: normal;
+    }
+    select{
+        color: darkgray;
+    }
+    option:not(first-child) {
+        color: #000;
+    }
+    #terms{
+        font-size: small;
+    }
+    #custentity6_fs{
+        width: 14px;
+        height: 18px;
+        float:right;
+        margin-right:6px;
+    }
+
+    @media screen and (max-width: 540px) {
+        .sub-heading {
+            font-size: 15px;
+            padding-bottom: 2px;
+        }       
+        #terms{
+            font-size: smaller;
+        }
+    }
+    @media screen and (max-width: 400px) and (min-width: 150px){
+
+        .sub-heading {
+            font-size: 15px;
+            padding-bottom: 2px;
+        }
+        #myform .action-button {
+            width: 93px;
+            padding: 7px 1px;
+            margin: -9px 5px;
+        }
+
+        #myform .action-button-previous {
+            width: 93px;
+            padding: 7px 1px;
+            margin: -9px 5px;
+        }
+
+        #p{
+            font-size: 12px;
+        }       
+        #myform fieldset {
+            padding:0% 5% 5% 5%;
+        }        
+        #terms{
+            font-size: smaller;
+        }
+        #custentity6_fs{
+            height: 16px;
+        }
+    }
+    @media screen and (max-width: 400px)and(min-width: 260px)and (max-height:650px)  {
+        #progressbar li {
+            margin-top: 10px;
+        }
+        #progressbar::before{
+            margin-top: 21px;
+        }
+
+        .sub-heading {
+            font-size: 15px;
+            padding-bottom: 2px;
+        }
+        #myform .action-button {
+            width: 93px;
+            padding: 7px 1px;
+            margin: -9px 5px;
+        }
+
+        #myform .action-button-previous {
+            width: 93px;
+            padding: 7px 1px;
+            margin: -9px 5px;
+        }
+
+        #p{
+            font-size: 12px;
+        }        
+        #myform fieldset {
+            padding:0% 5% 5% 5%;
+        }       
+        #terms{
+            font-size: smaller;
+        }
+        #custentity6_fs{
+            height: 16px;
+        }
+
+    }
+
+</style>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TTJFSCM"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- MultiStep Form -->
+<div class="row horizontalHandiling">
+    <div class="col-md-4 to col-md-12">
+        <form id="myform">
+            <!-- progressbar -->
+            <ul id="progressbar">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <!--<li></li>-->
+                <!--<li></li>-->
+            </ul>
+            <!-- fieldsets -->
+            <fieldset>
+                <div id="step1">
+                    <h1 class="sub-heading">Step 1: Contact Information</h1>
+                    <h2 class="required">First Name</h2>
+                    <input name="firstname" type="text" id="firstname_fs" class="input_text" maxlength="15"  placeholder="First Name*"  style="color: black;font-weight:bold"><br><br>
+                    <h2 class="required">Last Name</h2>
+                    <input name="lastname" type="text" id="lastname_fs"  class="input_text"  maxlength="15" placeholder="Last Name*"  style="color:black;
+                    font-weight: bold;"><br><br>
+                    <h2 class="required">Email</h2>
+                    <input name="email" type="text" id="email_fs" class="input_text" maxlength="40"  placeholder="Email*" style="color:black;
+                    font-weight: bold;"><br><br>
+                </div> 
+                <br><br>              
+                <input  type="button" id="s1"  name="next" class="next action-button" value="NEXT  &#8594;" onclick="buttonstep1click(); " /><br>
+            </fieldset>
+            <fieldset>
+                <div id="step3">
+                    <h1 class="sub-heading">Step 2: Business Information</h1>
+                    <h2 class="required">Business Name</h2>
+                    <input type="text"  name="companyname" id="companyname_fs" class="input_text"
+                           placeholder="Business Name*"  maxlength="40" style="color:black;font-weight: bold;"><br><br>
+                    <h2 class="required">Industry</h2>
+                    <select name="industry"  id="industry_fs"
+                            class="input_text"  >
+                        <option value="">Select Industry</option>
+                        <option value="10">Ag/Forestry/Livestock</option>
+                        <option value="21">Animals (Dogs/Horses/Reptiles/etc)</option>
+                        <option value="22">Artwork/Tattoo</option>
+                        <option value="8">Automotive/ATV/Motorcycle</option>
+                        <option value="13">Church</option>
+                        <option value="1">Construction</option>
+                        <option value="11">Corporate</option>
+                        <option value="7">Finance</option>
+                        <option value="2">Fitness</option>
+                        <option value="4">Food and Beverage</option>
+                        <option value="12">Golf Course/Country Club</option>
+                        <option value="19">Landscape/Lawncare</option>
+                        <option value="23">Logistics</option>
+                        <option value="6">Medical</option>
+                        <option value="15">Personal</option>
+                        <option value="9">Public Service</option>
+                        <option value="20">Real Estate</option>
+                        <option value="14">Retail</option>
+                        <option value="16">School/University</option>
+                        <option value="3">Team Sports</option>
+                    </select>
+                    <br><br>
+                    <h2 class="required">Location (State)</h2>
+                    <select name="state"  id="state_fs"
+                            class="input_text"  >
+                        <option value="">Select State</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="DC">District of Columbia</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                    </select>
+                </div>
+                <br><br>
+                <input type="button"  id="s4"  name="next" class="next action-button" value="NEXT  &#8594;"/>
+                <input type="button" name="previous" class="previous action-button-previous" value="&#8592;  BACK"/><br>
+
+            </fieldset>
+            <fieldset>
+                <div id="step4">
+                    <h1 class="sub-heading">Step 3: Order Details</h1>
+                    <h2 class="required">How many items are you ordering (12 minimum)?</h2>
+                    <select name="units" class="input_text" id="units_fs"  >
+                        <option value="">Select Items</option>
+                        <option value="5">250+</option>
+                        <option value="4">100-249</option>
+                        <option value="3">50-99</option>
+                        <option value="2">25-49</option>
+                        <option value="1">12-24</option>
+                    </select>
+                    <br><br>
+
+                    <h2>Additional notes or requests? Let us know here!</h2>
+                    <textarea type="textarea"  class="input_text" name="comments" placeholder="Let us know here!" id="comments_fs" aria-required="true" maxlength="50" style="color:black; font-weight: bold;" ></textarea>
+                </div>
+                <br><br>
+                <input type="button" id="s5"  name="next" class="next action-button" value="NEXT  &#8594;"/>
+                <input type="button" name="previous" class="previous action-button-previous" value="&#8592;  BACK"/><br>
+            </fieldset>
+            <fieldset>
+                <div id="step5">
+                    <h1 class="sub-heading">Step 4: Logo Upload</h1>
+                    <h2>Upload your logo now. File types accepted are: jpg, jpeg, png, pdf. The maximum size must be less than 9mb and up to 5 files can be uploaded. If you do not have your logo now please have it ready to send when we follow up with you via email.</h2><br><br><br>
+                    <input type="hidden" name="document" value="9000000" id="max_id">
+
+                    <input type="file" id="file_fs" name="file" class="doc" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                           aria-required="true" onchange="myFunction('file_fs');" multiple >
+                    <br><br><br><br><br><br>
+                    <h2 style="font-weight: normal;color: #666666;font-size:12px;">By clicking SUBMIT you agree to*</h2><br>
+                    <a href="https://brandedbillscustom.com/pages/terms-and-conditions" target="_blank"id="terms" style="font-weight:normal;float:right;color: #666666;">TERMS AND
+                        CONDITIONS</a>
+                    <input  type="checkbox" required="" class="checkbox form-control" name="terms"
+                            id="custentity6_fs" aria-required="true" value="T">
+
+                    <span class=".error" style="display: flex;"></span>
+                </div>
+                <br><br>
+                <div class="thankyou" id="output" style="color: white"></div>
+                <div class="loader"></div>
+                <input name="submitter" id="submitbtnclick" type="button" style="width:100%" value="SUBMIT  &#8594;" class="submit submit-button" onclick="buttonclick();"/>
+            </fieldset>
+        </form>
+        <!-- link to designify.me code snippets -->
+    </div>
+</div>
+<!-- /.MultiStep Form -->
+</body>
+<script>
+    var current_fs, next_fs, previous_fs; //fieldsets
+    var left, opacity, scale; //fieldset properties which we will animate
+    var animating; //flag to prevent quick multi-click glitches
+    var step=1;
+
+    $("#s1").click(function(){
+        var hasError=false;
+        var regName =  /[a-zA-Z]/g ;
+        var reglastName=/[a-zA-Z]/g ;       
+        var firstnameVal = $("#firstname_fs").val();
+        var lastnameVal = $("#lastname_fs").val();
+        var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var emailaddressVal = $("#email_fs").val();      
+        $(".error1").remove();
+        if(firstnameVal == '') {
+            $("#firstname_fs").after('<span class="error1">This field is required.</span>');
+            hasError = true;
+        }
+        else if(!regName.test(firstnameVal)) {
+            // $(".error1").remove();
+            $("#firstname_fs").after('<span class="error1">Enter a valid first name.</span>');
+            hasError = true;
+        }
+
+        if(lastnameVal == '') {
+            $("#lastname_fs").after('<span class="error1">This field is required.</span>');
+            hasError = true;
+
+        }
+        else if(!reglastName.test(lastnameVal)){
+            // $(".error").remove();
+            $("#lastname_fs").after('<span class="error1">Enter a valid last name.</span>')
+            hasError=true;
+        }
+        if(emailaddressVal == '') {
+            $("#email_fs").after('<span class="error1">This field is required.</span>');
+            hasError = true;
+        }
+        else if(!emailReg.test(emailaddressVal)) {
+            // $(".error").remove();
+            $("#email_fs").after('<span class="error1">Enter a valid email address.</span>');
+            hasError = true;
+        }
+        if(hasError == true){
+            return false;
+        }
+        if (hasError == false) {
+            if (animating) return false;
+            animating = true;
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+            //activate next step on progressbar using the  of next_fs
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function (now, mx) {
+                    //as the opacity of current_fs reduces to 0 - stored in "now"
+                    //1. scale current_fs down to 80%
+                    scale = 1 - (1 - now) * 0.2;
+                    //2. bring next_fs from the right(50%)
+                    left = (now * 50) + "%";
+                    //3. increase opacity of next_fs to 1 as it moves in
+                    opacity = 1 - now;
+                    current_fs.css({
+                        'transform': 'scale(' + scale + ')',
+                        'position': 'absolute'
+                    });
+                    next_fs.css({'left': left, 'opacity': opacity});
+                },
+                duration: 800,
+                complete: function () {
+                    current_fs.hide();
+                    animating = false;
+                },
+                //this comes from the custom easing plugin
+                easing: 'easeInOutBack'
+
+            });
+        }
+        else
+        {
+            console.log("else part")
+        }
+        step++;
+    });
+    
+    $("#s4").click(function(){
+        var hasError=false;
+        var regbusinessName =  /[a-zA-Z]/g ;
+        var businessnameVal = $("#companyname_fs").val();
+        var industryVal = $("#industry_fs").val();
+        var stateVal=$("#state_fs").val();
+
+        $(".error1").remove();
+
+        if(businessnameVal == '') {
+            $("#companyname_fs").after('<span class="error1">This field is required.</span>');
+            hasError = true;
+        }
+        else if(!regbusinessName.test(businessnameVal)) {
+            // $(".error1").remove();
+            $("#companyname_fs").after('<span class="error1">Enter a valid business name.</span>');
+            hasError = true;
+        }
+
+        if(industryVal == '') {
+            $("#industry_fs").after('<span class="error1">This field is required.</span>');
+            hasError = true;
+
+        }
+        if(stateVal ==''){
+            $("#state_fs").after('<span class="error1">This field is required.</span>');
+            hasError = true;
+        }
+        if(hasError == true){
+            return false;
+        }
+        if (hasError == false) {
+            if (animating) return false;
+            animating = true;
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+            //activate next step on progressbar using the  of next_fs
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+            //show the next fieldset
+            next_fs.show();
+
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function (now, mx) {
+                    //as the opacity of current_fs reduces to 0 - stored in "now"
+                    //1. scale current_fs down to 80%
+                    scale = 1 - (1 - now) * 0.2;
+                    //2. bring next_fs from the right(50%)
+                    left = (now * 50) + "%";
+                    //3. increase opacity of next_fs to 1 as it moves in
+                    opacity = 1 - now;
+                    current_fs.css({
+                        'transform': 'scale(' + scale + ')',
+                        'position': 'absolute'
+                    });
+                    next_fs.css({'left': left, 'opacity': opacity});
+                },
+                duration: 800,
+                complete: function () {
+                    current_fs.hide();
+                    animating = false;
+                },
+                //this comes from the custom easing plugin
+                easing: 'easeInOutBack'
+            });
+        }
+        else
+        {
+            console.log("else part")
+        }
+        step++;
+    });
+    $("#s5").click(function(){
+        var hasError=false;
+        var unitsVal = $("#units_fs").val();
+
+        $(".error1").remove();
+
+        if(unitsVal == '') {
+            $("#units_fs").after('<span class="error1">This field is required.</span>');
+            hasError = true;
+
+        }
+        if(hasError == true){
+            return false;
+        }
+        if (hasError == false) {
+            if (animating) return false;
+            animating = true;
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+            //activate next step on progressbar using the  of next_fs
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+            //show the next fieldset
+            next_fs.show();
+
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function (now, mx) {
+                    //as the opacity of current_fs reduces to 0 - stored in "now"
+                    //1. scale current_fs down to 80%
+                    scale = 1 - (1 - now) * 0.2;
+                    //2. bring next_fs from the right(50%)
+                    left = (now * 50) + "%";
+                    //3. increase opacity of next_fs to 1 as it moves in
+                    opacity = 1 - now;
+                    current_fs.css({
+                        'transform': 'scale(' + scale + ')',
+                        'position': 'absolute'
+                    });
+                    next_fs.css({'left': left, 'opacity': opacity});
+                },
+                duration: 800,
+                complete: function () {
+                    current_fs.hide();
+                    animating = false;
+                },
+                //this comes from the custom easing plugin
+                easing: 'easeInOutBack'
+            });
+        }
+        else
+        {
+            console.log("else part")
+        }
+        step++;
+    });
+    $(".previous").click(function(){
+        if(animating) return false
+        animating = true;
+
+        current_fs = $(this).parent();
+        previous_fs = $(this).parent().prev();
+
+        //de-activate current step on progressbar
+        $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+        //show the previous fieldset
+        previous_fs.show();
+        //hide the current fieldset with style
+        current_fs.animate({opacity: 0}, {
+            step: function(now, mx) {
+                //as the opacity of current_fs reduces to 0 - stored in "now"
+                //1. scale previous_fs from 80% to 100%
+                scale = 0.8 + (1 - now) * 0.2;
+                //2. take current_fs to the right(50%) - from 0%
+                left = ((1-now) * 50)+"%";
+                //3. increase opacity of previous_fs to 1 as it moves in
+                opacity = 1 - now;
+                current_fs.css({'left': left});
+                previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+            },
+            duration: 800,
+            complete: function(){
+                current_fs.hide();
+                animating = false;
+            },
+            //this comes from the custom easing plugin
+            easing: 'easeInOutBack'
+        });
+        step--;
+    });
+    $(".input_text").focus(function(){
+        $(this).siblings("span").hide();
+    });
+    $(document).keypress(function(e) {
+        if(e.key === 'Enter') {
+            if(step==1) {
+                $("#s1").click();
+                e.preventDefault();
+            }            
+            else if(step==3) {
+                $('#s4').click();
+                e.preventDefault();
+            }
+            else if(step==4) {
+                $('#s5').click();
+                e.preventDefault();
+            }
+            else {
+                $('#submitbtnclick').click();
+                e.preventDefault();
+            }
+        }
+    });
+
+    var isMobile=/iP(hone|od)|android.+mobile|BlackBerry|IEMobile/i.test(navigator.userAgent);
+    var isTablet=/(tablet|ipad|playbook|silk)|(android(?!.*mobile))/i.test(navigator.userAgent);
+    var isDesktop='ontouchstart' in document.documentElement;
+
+    async function buttonstep1click(){
+        $.ajax({
+            type: "POST",
+            url:"https://4557678.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=1778&deploy=1&compid=4557678&h=8862f213d58fdc257054&status=1",
+            data: {
+                'firstname': document.getElementById("firstname_fs").value,
+                'lastname': document.getElementById("lastname_fs").value,
+                'email': document.getElementById("email_fs").value,
+            }
+        });
+    }
+    async function buttonclick()
+    {
+        var checkBoxVal = document.getElementById("custentity6_fs");
+        var fileChosenVal = document.getElementById("file_fs");
+        var fileLen = document.getElementById("file_fs").files.length;
+        if(checkBoxVal.checked==true){
+            document.getElementById("submitbtnclick").disabled=true;
+        }
+        var form = $("#myform");
+        form.validate({
+            rules: {
+                terms:'required',
+            },
+            messages: {
+                terms: {
+                    required:"This field is required."
+                }
+            },
+            errorElement: "div"
+        });
+
+        if (form.valid() == true) {
+            document.getElementById("output").innerHTML="Thank you";
+
+            $(document).ready(function(){
+                setTimeout(function(){ $("#output").hide(); }, 4000);
+            });
+
+            $(".loader").show();
+            $(".button-input").attr("disabled", true);
+
+            var files = $('#file_fs')[0].files;
+            var fileValues = $('#file_fs');
+            var fileDataarr = [];
+            for (var i = 0; i < files.length; i++) {
+                let fileDataa = getBase64(files[i]);
+                let finalData = await fileDataa;
+                var fileData = {
+                    'name': files[i].name,
+                    'file': finalData,
+                    'type': files[i].type
+                };
+                fileDataarr.push(fileData)
+
+            }
+            console.log('fileDataarr', fileDataarr);
+
+            var query = window.location.href;
+            var  url_parameters = query.replace("https://4557678.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=1778&deploy=1&compid=4557678&h=8862f213d58fdc257054", "");
+
+            function onClickSnap() {
+
+
+                var query = window.location.href;
+                var url_parameters = query.replace("https://4557678.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=1778&deploy=1&compid=4557678&h=8862f213d58fdc257054", "");
+
+
+                if (url_parameters) {
+                    var url = "https://brandedbillscustom.com/pages/branded-bills-production-flow/?" + url_parameters;
+
+                }
+                else {
+                    var url = "https://brandedbillscustom.com/pages/branded-bills-production-flow";
+
+                }
+
+                if (typeof (url) != 'undefined') {
+                    //window.location = url;
+                    window.parent.location.href = url;
+                }
+
+            };
+
+            $.ajax({
+                type: "POST",
+                url:"https://4557678.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=1778&deploy=1&compid=4557678&h=8862f213d58fdc257054&status=2",
+                data: {
+                    'firstname': document.getElementById("firstname_fs").value,
+                    'lastname': document.getElementById("lastname_fs").value,
+                    'email': document.getElementById("email_fs").value,                                        
+                    'companyname': document.getElementById("companyname_fs").value,
+                    'comments': document.getElementById("comments_fs").value,
+                    'industry': document.getElementById("industry_fs").value,
+                    'units': document.getElementById("units_fs").value,
+                    'state': document.getElementById("state_fs").value,
+                    'document': JSON.stringify(fileDataarr),
+                    'url_parameter': url_parameters,
+                    'isMobile':isMobile,
+                    'isTablet':isTablet,
+                    'isDesktop':isDesktop
+                },
+                success: function () {
+                    $(".loader").hide();
+                    onClickSnap();
+                    //window.parent.location.href = "https://brandedbillscustom.com/pages/branded-bills-production-flow";
+                }
+            });
+        }
+
+    }
+
+    jQuery(function ($) {
+        $("select").change(function () {
+            if ($(this).val() == "") $(this).css({color: "#aaa", fontWeight: "normal"});
+            else $(this).css({color: "#000",fontWeight:"bold"});
+        });
+    });
+
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
+    function fileReaders(file, id) {
+        return new Promise((resolve, reject) => {
+            var fr = new FileReader();
+            // fr.readAsText(file);
+            fr.readAsDataURL(file);
+            fr.onload = () => {
+                //  $('#'+ id + '-code').val(fr.result.split(',')[1]);
+                // resolve((fr.result))
+                var mtlFileContent = (fr.result).replace('data:;base64,', '');
+                // mtlFileContent = window.atob(mtlFileContent);
+                var b64 = mtlFileContent.split("base64,")[1];
+                $('#' + id + '-code').val(b64);
+            };
+        });
+    }
+
+    function myFunction(id) {
+        var files = $('#file_fs')[0].files;
+        console.log("files",files)
+        if (files.length > 5) {
+            swal("Up to 5 files are allowed to upload").then((value) => {
+                document.getElementById("file_fs").value = "";
+
+            });
+        }
+        var upl = document.getElementById("file_fs");
+        var max = document.getElementById("max_id").value;
+        var im = document.getElementById("file_fs").value;
+        for (var i = 0; i < upl.files.length; i++) {
+            var image = upl.files[i].size;
+            if (image > max) {
+                swal("Maximum size of files should be less than 9MB.").then((value) => {
+                    document.getElementById("file_fs").value = "";
+                });
+            }
+        }
+        var allowedExtensions =
+            /(\.png|\.jpg|\.jpeg|\.pdf|\.PDF|\.PNG|\.JPG|\.JPEG)$/i;
+
+        if (!allowedExtensions.exec(im)) {
+            swal("Only jpg, jpeg, png and pdf files are accepted").then((value) => {
+                document.getElementById("file_fs").value = "";
+            });
+        }
+        var files = $('#' + id)[0].files;
+        var encodedFile = fileReaders(files[0], id);
+    }
+</script>
+</html>
